@@ -1,0 +1,45 @@
+package university;
+
+class Studenti {
+	private static int max=25;
+	private String nome;
+	private String cognome;
+	private int matricola,i=0;
+	private static int offset=10000;
+	private int frequentati[]=new int[max];
+	
+	public Studenti(String nome,String cognome,int i){
+		this.nome=new String(nome);
+		this.cognome=new String(cognome);
+		matricola=i+offset;
+		return;
+	}
+	int getmatricola(){
+		return this.matricola;
+	}
+	String getdata(){
+		return this.matricola+" "+this.nome+" "+this.cognome;
+	}
+	int iscritti(int codicecorso){
+		if(i<max){
+			this.frequentati[i++]=codicecorso;
+			return 0;
+		}
+		else{
+			System.out.println("Carico didattico pieno");
+			return 1;
+		}
+	}
+	void del(int coursecode){
+		this.frequentati[--i]=0;
+		return;
+	}
+	String getcaricodid(){
+		StringBuffer tmp=new StringBuffer();
+		for(int j=0;j<i;j++){
+			if(this.frequentati[j]!=0)
+				tmp.append(University.student(this.frequentati[j])+'\n');
+		}
+		return tmp.toString();
+	}
+}

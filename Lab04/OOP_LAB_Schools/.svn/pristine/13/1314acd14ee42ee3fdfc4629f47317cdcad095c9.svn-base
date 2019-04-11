@@ -1,0 +1,31 @@
+package schools;
+
+import java.util.Collection;
+
+import schools.Community.Type;
+
+public class Community {
+	private String nome;
+	
+	public enum Type { MONTANA, COLLINARE };
+	private Type tipo;
+	
+	public Community(String name, Type type) {
+		this.nome=name;
+		this.tipo=type;
+		return;
+	}
+
+	public String getName() {
+		return this.nome;
+	}
+	
+	public Type getType(){
+		return this.tipo;
+	}
+
+	public Collection<Municipality> getMunicipalities() {
+		return null;
+	}
+	
+}

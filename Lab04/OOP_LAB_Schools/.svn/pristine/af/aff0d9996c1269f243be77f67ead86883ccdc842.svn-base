@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<style type="text/css">
+<!--
+body {
+	margin: 0.5cm;
+	/*
+	font-size: 13px;
+	*/
+	}
+p   {
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+    }
+b   {
+	font-family: monospace;
+	color: MidnightBlue;
+	background: #f8f8f8;
+	border-radius: 2pt;
+	padding: 1pt;
+/*
+    font-size=85%;
+	border: 1pt dotted silver;
+*/
+	}
+	
+i   {
+	color: Navy;
+	font-family: monospace;
+	}
+	
+h1  {
+	font-family: sans-serif;
+	text-align: center;
+    line-height: 1.1em;
+	}
+	
+h2  {
+    /*float: left;*/
+    margin-top: 0;
+    padding: 5px 10px 5px 0px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    line-height: 0.8em;
+	color: RoyalBlue;
+	font-family: sans-serif;
+	border-top: 1px dotted gray;
+	}
+table {
+	float: right;
+	margin: 20px;
+	border-collapse:collapse;
+	border-bottom: 1px solid Navy;
+	border-top: 1px solid Navy;
+	}
+td, th  {
+	padding: 1px 5px 1px 5px;
+	}
+tr:nth-child(even) {
+    background-color: PowderBlue;
+    margin: 1pt solid PowderBlue;
+}
+-->
+</style>
+  <title>Laboratorio - Scuole</title>
+  <meta name="revision" content="5 Maggio 2015">
+  <meta name="author" content="Marco Torchiano">
+</head>
+<body>
+<h1 style="text-align: center;">Scuole<br>
+</h1>
+Sviluppare un'applicazione che consenta di gestire le informazioni sulle scuole di una regione.<br>
+L'applicazione deve permettere di inserire le informazioni su comuni, scuole e sedi.<br>
+Tutte le classi devono essere nel package "<b>schools</b>".<br>
+
+
+<h2>R1 - Comuni e comunit&agrave;<br>
+</h2>
+L'interazione con il sistema avviene tramite la classe <b>Region</b>.
+<br>
+Per definire una comunit&agrave; si usa il metodo <b>newCommunity()</b>
+che riceve come parametri il nome e un <b>Community.Type</b> che indica se la
+comunit&agrave; &egrave; montana o collinare.
+<br/>
+Il metodo restistuisce un oggetto di classe <b>Community</b>.
+<p>
+Per definire un comune, si utilizza il metodo <b>newMunicipality()</b> che riceve
+come parametri il nome, la provincia, il codice dell'Ambito Funzionale, la
+denominazione dell'area funzionale e un riferimento opzionale alla eventuale comunita di appartenenza.
+<br/>
+Il metodo restistuisce un oggetto di classe <b>Municipality</b>
+<p>
+Entrambe le classi offrono gli ovvi metodi getter.
+<br>
+&Egrave; possibile ottenere le collezioni di comuni e comunit&agrave;
+tramite i metodi <b>getMunicipalities()</b> e <b>getCommunities()</b> situati nelle 
+rispettive classi. Il metodo <i>getCommunity()</i> restituisce 
+un <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html"><i>Optional</i></a> che &egrave; vuoto se il comune non appartiene
+ad alcuna comunit&agrave;.
+<p>
+<h4>Suggerimenti</h4>
+<ul>
+<li>La dichirazione di un <i>enum</i> definisce un nuovo tipo che pu&ograve; essere usato come un tipo primitivo:
+    i soli possibili valori sono quelli elencati dentro la dichiarazione e possono essere menzionati
+    con la sintassi <i>EnumName.VALUE</i>, dove il nome dell'enum &egrave; il nome completo.
+    </li>
+<li>La classe <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html"><i>Optional</i></a>
+    viene utilizzata per segnalare esplicitamente che un valore pu&ograve; essere assente (<i>isPresent()</i> indica
+    se un valore &egrave; presente nell'optional).<p>
+    
+    Per creare un <i>Optional</i> a partire da una variable che potrebbe essere <i>null</i> 
+	si pu&ograve; usare <i>Optional.ofNullable()</i> che  restituisce un <i>Optional</i> contenente 
+	la variabile oppure un <i>Optional</i> vuoto se la variabile &egrave; <i>null</i>. 
+</ul>
+
+
+
+<h2>R2 - Scuole e sedi</h2>
+Le scuole vengono definite tramite il metodo <b>newSchool()</b>
+che accetta come parametri la denominazione, il codice ministeriale (univoco), 
+il grado, la descrizione, il tipo di gestione e la posizione giuridica.
+<br/>
+Il metodo restistuisce un oggetto di classe <b>School</b>
+<p>
+Le scuole possono avere diverse sedi che vengono definite tramite
+il metodo <b>newBranch()</b> che riceve come parametri il codice (univoco), 
+il tipo di sede, un riferimento al comune in cui si trova, l'indirizzo, 
+il cap, la frazione, il telefono, il fax e un riferimento alla scuola
+di cui fa parte.
+<br/>
+Il metodo restistuisce un oggetto di classe <b>Branch</b>
+<p>
+La classe <i>Branch</i> offre i metodi getter relativi ai suoi parametri,
+un metodo <b>getMunicipality()</b> per ottenere l'oggetto <i>Municipality</i>
+in cui si trova la sede, e un metodo <b>getSchool()</b> per risalire
+alla scuola a cui afferisce le sede.
+<p>
+La classe <i>School</i> offre il metodo <b>getBranches()</b> per ottenere
+la collezione delle sedi.
+
+
+
+
+<h2>R3 - Lettura da CSV</h2>
+
+&Egrave; possibile, tramite il metodo <b>readData()</b>, leggere le informazioni relative alle classi illustrate
+sopra da un URL passato come parametro. Il metodo deve popolare la classe regione creando
+    gli oggetti comune, comunit&agrave;, scuola e sede descritti nel file.
+<p>
+Le informazioni relative alla scuole regionali sono definite in un file con codifica
+<a href="http://it.wikipedia.org/wiki/Comma-separated_values">CSV</a>.
+che &egrave; strutturato in base alle seguenti colonne che contengono informazioni relative
+a comuni, comunit&agrave;, scuole e sedi:
+<p>
+<table style="float:none;font-family:sans-serif;">
+<tr><th># <th>Nome		<th colspan="4">Informazioni relative alle classi 
+<tr><th><th>						<th><b>Comune</b><th><b>Comunita</b><th><b>Scuola</b><th><b>Sede</b>
+<tr><td>0 <td><i>Provincia</i>					<td align="center">X	  <td>	             <td>	   <td>
+<tr><td>1 <td><i>Comune</i>					<td align="center">X	  <td>	             <td>	   <td>
+<tr><td>2 <td><i>Grado Scolastico</i>			<td>	  <td>	             <td align="center">X	   <td>
+<tr><td>3 <td><i>Descrizione Scuola</i>		<td>	  <td>	             <td align="center">X	   <td>
+<tr><td>4 <td><i>Cod Scuola</i>				<td>	  <td>	             <td>	   <td align="center">X
+<tr><td>5 <td><i>Cod M.P.I.</i>				<td>	  <td>	             <td align="center">X	   <td>
+<tr><td>6 <td><i>Denominazione Scuola</i>		<td>	  <td>	             <td align="center">X	   <td>
+<tr><td>7 <td><i>Tipo Unita Scolastica</i>		<td>	  <td>	             <td>	   <td align="center">X
+<tr><td>8 <td><i>Indirizzo e n. civico</i>		<td>	  <td>	             <td>	   <td align="center">X
+<tr><td>9 <td><i>C.A.P.</i>					<td>	  <td>	             <td>	   <td align="center">X
+<tr><td>10<td><i>Frazione o Localit&agrave;</i><td>	  <td>	             <td>	   <td align="center">X
+<tr><td>11<td><i>Fax</i>						<td>	  <td>	             <td>	   <td align="center">X
+<tr><td>12<td><i>Telefono</i>					<td>	  <td>	             <td>	   <td align="center">X
+<tr><td>13<td><i>Comunita Collinare</i>		<td align="center">X	  <td align="center">X	             <td>	   <td>
+<tr><td>14<td><i>Comunita Montana</i>			<td align="center">X	  <td align="center">X	             <td>	   <td>
+<tr><td>15<td><i>Ambito Funzionale</i>			<td align="center">X	  <td>	             <td>	   <td>
+<tr><td>16<td><i>Denominazione Ambito Funzionale</i><td align="center">X  <td>	             <td>	   <td>
+<tr><td>17<td><i>Tipo di Gestione</i>			<td>	  <td>	             <td align="center">X	   <td>
+<tr><td>18<td><i>Posizione Giuridica</i>			<td>	  <td>	             <td align="center">X	   <td>
+<tr><td>19<td><i>Paritaria/Non Paritaria</i>		<td>	  <td>	             <td align="center">X	   <td>
+<!--
+<tr><td>20<td><i>Anno</i>						<td>	  <td>	             <td>	   <td>
+-->
+</table>
+<p>
+Il file contiene una riga per ogni sede, quindi le informazioni relative a scuola, comunit&agrave; e comune
+sono replicate pi&ugrave; volte.
+<p>
+Le colonne <i>Comunita Collinare</i> e <i>Comunita Montana</i> possono assumere come valore
+il nome della comunit&agrave; oppure <i>"NESSUNA COMUNITA' COLLINARE"</i> e <i>"NESSUNA COMUNITA' MONTANA"</i> 
+rispettivamente se il comune non appartiene ad alcuna comunit&agrave;.
+<p>
+La colonna <i>Grado Scolastico</i> contiene sia un numero che una descrizione (e.g. <i>"2 - Scuola primaria"</i>)
+occorre estrarre solamente il numero prima del carattere '-'.
+
+<p>
+I dati relativi alla regione Piemonte sono disponibili all'url: 
+<i><a href="http://www.dati.piemonte.it/catalogodati/scarica.html?idallegato=252"
+>http://www.dati.piemonte.it/catalogodati/scarica.html?idallegato=252</a></i>.
+ 
+<p>
+<h4>Suggerimenti</h4>
+<ul>
+<li>Durante la lettura del file, per ogni riga &egrave; necessario, prima di creare una nuova sede,
+creare la comunit&agrave; (se non ancora presente), il comune (ove non gi&agrave; presente)
+e la scuola (ove non gia&agrave; presente). 
+
+<li>Per la lettura da file, si consiglia di utilizzare
+la classe <i>it.polito.utility.files.CsvParser</i>
+che &egrave; fornita all'interno del file jar incluso nel progetto.
+<p>
+Ad esempio per contare il numero di sedi per provincia si
+pu&ograve; utilizzare il seguente codice:
+<pre>
+CsvParser parser = CsvParser.createInstance();
+Map<String,Long> cont = 
+parser.openNamedRowsUrl(urlDatiPiemonte)
+.collect(groupingBy( row -> row.get("Provincia"),counting()))
+;
+</pre>
+
+La documentazione completa della classe &egrave; disponibile all'url:
+
+<i><a href="http://softeng.polito.it/courses/02JEY/doc/it/polito/utility/files/CsvParser.html"
+>http://softeng.polito.it/courses/02JEY/doc/it/polito/utility/files/CsvParser.html</a>.</i>
+</ul>
+<h2>R4 - Interrogazioni</h2>
+<p>
+Il metodo <b>countSchoolsPerDescription()</b> restituisce una mappa
+contenente come chiave la descrizione e come valore il numero
+di scuole corrispondentin a tale descrizione. 
+<p>
+Il metodo <b>countBranchesPerMunicipality()</b> restituisce una mappa
+contenente come chiave il nome del comune e come valore il numero
+di sedi presenti nel comune. 
+<p>
+Il metodo <b>averageBranchesPerMunicipality()</b> restituisce una mappa
+contenente come chiave il nome della provincia e come valore
+la media del numero di sedi per comune.
+<p>
+Il metodo <b>countSchoolsPerMunicipality()</b> restituisce una lista
+di stringhe ciascuna nel formato "<i>### - XXXXXX</i>" dove
+<i>###</i> rappresenta il numero di scuole (!non sedi!)
+e <i>XXXXXX</i> rappresenta il nome del comune.
+<p>
+Il metodo <b>countSchoolsPerCommunity()</b> restituisce una lista
+di stringhe ciascune nel formato "<i>### - XXXXXX</i>" dove
+<i>###</i> rappresenta il numero di scuole (!non sedi!)
+e <i>XXXXXX</i> rappresenta il nome della comunita
+ordinate in maniera decrescente per numero di scuole.
+L'elenco deve contenere solo le scuole che hanno almeno
+una sede in un comune sede di comunit&agrave;.
+
+
+<h4>Suggerimenti</h4>
+<ul>
+<li>Quando occorre ordinare degli elementi in senso inverso in base ad un loro attributo,
+&egrave; preferibile la forma <i>comparing(Element::getValue,reverseOrder())</i>
+rispetto alla forma <i>comparing(Element::getValue).reversed()</i>
+in quanto quest'ultima potrebbe non consentire al compilatore
+una corretta inferenza dei tipi.</li>
+</ul>
+
+<b></b>
+</body>
+</html>

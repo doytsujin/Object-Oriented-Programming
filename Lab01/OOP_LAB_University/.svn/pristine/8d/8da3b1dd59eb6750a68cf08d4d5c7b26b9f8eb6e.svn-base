@@ -1,0 +1,42 @@
+package university;
+
+class Corsi {
+	private static int max=100;
+	private String nomecorso;
+	private String professore;
+	private int codC,i=0;
+	private int allievi[]=new int[max];
+	
+	Corsi(String c,String p,int codice){
+		this.nomecorso=new String(c);
+		this.professore=new String(p);
+		this.codC=codice+10;
+		return;
+	}
+	int getcodC(){
+		return this.codC;
+	}
+	String getnomeC(){
+		return this.nomecorso;
+	}
+	String getnomeP(){
+		return this.professore;
+	}
+	int iscrizione(int stud){
+		if(i<max){
+			this.allievi[i++]=stud;
+			return 0;
+		}
+		else{
+			System.out.println("Corso pieno");
+			return 1;
+		}
+	}
+	String getstudents(){
+		StringBuffer tmp=new StringBuffer();
+		for(int j=0;j<i;j++){
+			tmp.append(University.student(this.allievi[j])+'\n');
+		}
+		return tmp.toString();
+	}
+}

@@ -1,0 +1,101 @@
+package schools;
+
+import it.polito.utility.files.CsvParser;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.*;
+import static java.util.Comparator.*;
+
+
+public class Region {
+	private String nome;
+	private Map<String,Community> commap = new HashMap<>();
+	private Map<String,Municipality> munmap = new HashMap<>();
+	
+	public Region(String name){
+		this.nome=name;
+		return;
+	}
+	
+	public String getName(){
+		return this.nome;
+	}
+	
+	public Collection<School> getSchools() {
+		return null;
+	}
+	
+	public Collection<Community> getCommunities() {
+		return commap.values();
+	}
+	
+	public Collection<Municipality> getMunicipalies() {
+		return munmap.values();
+	}
+	
+	
+	// factory methods
+	
+	public Community newCommunity(String name, Community.Type type){
+		Community e=new Community(name,type);
+		commap.put(name, e);
+		return e;
+	}
+
+	public Municipality newMunicipality(String nome, String provincia, String codiceAF, String nomeAF){
+		Municipality e=new Municipality(nome,provincia,codiceAF,nomeAF,null);
+		munmap.put(nome, e);
+		return e;
+	}
+	public Municipality newMunicipality(String nome, String provincia, String codiceAF, String nomeAF,Community comunita){
+		Municipality e=new Municipality(nome,provincia,codiceAF,nomeAF,comunita);
+		munmap.put(nome, e);
+		return e;
+	}
+	
+	public School newSchool(String name, String code, int grade,
+			String description, String managementType, String legalPosition){
+		return null;
+	}
+	
+	public Branch newBranch(int regionalCode, String branchType, Municipality municipality, String indirizzo, int cap,
+							String locality, String telephone, String fax,School school)	{
+		return null;
+	}
+	
+	public void readData(String url) throws IOException{
+	}
+
+
+	public Map<String,Long>countSchoolsPerDescription(){
+		return null;
+	}
+
+	
+
+	public Map<String,Long>countBranchesPerMunicipality(){
+		return null;
+	}
+
+	
+
+	public Map<String,Double>averageBranchesPerMunicipality(){
+		return null;
+	}
+
+
+	public Collection<String> countSchoolsPerMunicipality(){
+		return null;
+	}
+	
+
+	public List<String> countSchoolsPerCommunity(){
+		return null;
+	}
+
+	
+}

@@ -1,0 +1,72 @@
+package university;
+
+public class University {
+	static String uniname;
+	static String nomerettore;
+	static String cognomerettore;
+	static Studenti vett[]=new Studenti[1000];
+	static int numstud=0;
+	private int pos=0;
+	static Corsi courses[]=new Corsi[50];
+
+	public University(String name){
+		uniname=new String(name);
+		return;
+	}
+	
+	public String getName(){
+		return uniname;
+	}
+	
+	public void setRector(String first, String last){
+		nomerettore=new String(first);
+		cognomerettore=new String(last);
+		return;
+	}
+	
+	public String getRector(){
+		return nomerettore + " " + cognomerettore;
+	}
+	
+	public int enroll(String first, String last){
+		vett[numstud]=new Studenti(first,last,numstud);
+		return vett[numstud++].getmatricola();
+	}
+	
+	public static String student(int id){
+		int realid=id-10000;
+		return vett[realid].getdata();
+	}
+	
+	public int activate(String title, String teacher){
+		courses[pos]=new Corsi(title,teacher,pos);
+		return courses[pos++].getcodC();
+	}
+	
+	public String course(int code){
+		int realcode=code-10;
+		return courses[realcode].getcodC()+" "+courses[realcode].getnomeC()+" "+courses[realcode].getnomeP();
+	}
+	
+	public void register(int studentID, int courseCode){
+		int realcodeC=courseCode-10,realcodeS=studentID-10000;
+		if((vett[realcodeS].iscritti(courseCode))==0){
+			if(courses[realcodeC].iscrizione(studentID)==0)
+				System.out.println("Iscrizione avvenuta con successo");
+			else{
+				vett[realcodeS].del(courseCode);
+			}
+		}
+		return;
+	}
+	
+	public String listAttendees(int courseCode){
+		int realcode=courseCode-10;
+		return courses[realcode].getstudents();
+	}
+
+	public String studyPlan(int studentID){
+		int realcode=studentID-10000;
+		return vett[realcode].getcaricodid();
+	}
+}

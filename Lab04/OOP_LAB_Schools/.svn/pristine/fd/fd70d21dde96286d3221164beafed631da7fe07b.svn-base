@@ -1,0 +1,39 @@
+package schools;
+
+import java.util.Collection;
+import java.util.Optional;
+
+public class Municipality {
+	private String nome;
+	private String prov;
+	private String codaf,nomeaf;
+	Optional<Community> cmapp;
+
+	public Municipality(String nome, String provincia, String codiceAF, String nomeAF,Community comunita) {
+		this.nome=nome;
+		this.prov=provincia;
+		this.codaf=codiceAF;
+		this.nomeaf=nomeAF;
+		this.cmapp.ofNullable(comunita);
+	}
+	public String getName() {
+		return this.nome;
+}
+	public String getProvince() {
+		return this.prov;
+	}
+	public String getCodeAF() {
+		return this.codaf;
+	}
+	public String getNameAF() {
+		return this.nomeaf;
+	}
+	public Collection<Branch> getBranches() {
+		return null;
+	}
+
+	public Optional<Community> getCommunity() {
+		return cmapp;
+	}	
+	
+}
